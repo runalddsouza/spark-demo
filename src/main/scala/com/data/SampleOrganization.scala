@@ -2,8 +2,8 @@ package com.data
 
 import com.model.{Country, Department, Employee, Region}
 
-//Sample Data
-object Sample {
+//Sample Organization Data
+class SampleOrganization extends Organization {
   final val country = List(
     Country(100, "Australia", "AU"),
     Country(101, "Belgium", "BE"),

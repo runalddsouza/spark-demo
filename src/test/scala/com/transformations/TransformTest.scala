@@ -1,5 +1,6 @@
 package com.transformations
 
+import com.data.SampleOrganization
 import org.apache.spark.sql.SparkSession
 import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.TestInstance.Lifecycle
@@ -14,7 +15,7 @@ class TransformTest {
   @BeforeAll
   def init(): Unit = {
     spark = setupLocalSpark
-    transform = new SampleTransform(spark)
+    transform = new SampleTransform(spark, new SampleOrganization)
   }
 
   @Test

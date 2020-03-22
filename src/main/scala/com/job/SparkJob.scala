@@ -1,21 +1,20 @@
 package com.job
 
-import com.configuration.SparkConfiguration
 import org.apache.spark.sql.SparkSession
 
 trait SparkJob {
 
-  var spark: SparkSession = _
+  protected var spark: SparkSession = _
 
-  def init(configuration: SparkConfiguration): SparkSession
+  protected def init: SparkSession
 
-  def execute(configuration: SparkConfiguration): Unit
+  protected def execute(): Unit
 
-  def run(configuration: SparkConfiguration): Unit = {
-    spark = init(configuration)
-    execute(configuration)
+  final def run(): Unit = {
+    spark = init
+    execute()
     finish()
   }
 
-  def finish(): Unit = spark.stop
+  final protected def finish(): Unit = spark.stop
 }

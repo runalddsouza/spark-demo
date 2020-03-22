@@ -1,13 +1,15 @@
 package com.transformations
 
-import org.apache.spark.sql.DataFrame
+import com.data.Organization
+import com.model._
+import org.apache.spark.sql.{Dataset, SparkSession}
 
-trait Transform {
-  def country: DataFrame
+abstract class Transform(spark: SparkSession, organization: Organization) {
+  def country: Dataset[Country]
 
-  def region: DataFrame
+  def region: Dataset[Region]
 
-  def department: DataFrame
+  def department: Dataset[Department]
 
-  def employee: DataFrame
+  def employee: Dataset[Employee]
 }

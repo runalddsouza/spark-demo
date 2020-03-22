@@ -1,12 +1,16 @@
 package com
 
 import com.configuration.Configuration
-import com.job.{HdfsWriteJob, HiveInsertJob}
+import com.job.database.{HiveInsertJob, TableInsertJob}
+import com.job.write.{HdfsWriteJob, WriteJob}
 
 object App {
   def main(args: Array[String]): Unit = {
     val configuration = Configuration.load(args(0))
-    new HdfsWriteJob().run(configuration)
-    new HiveInsertJob().run(configuration)
+    val hdfsWriteJob: WriteJob = new HdfsWriteJob(configuration)
+    val hiveInsertJob: TableInsertJob = new HiveInsertJob(configuration)
+    //Run Jobs
+    hdfsWriteJob.run()
+    hiveInsertJob.run()
   }
 }
