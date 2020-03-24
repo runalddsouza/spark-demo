@@ -7,7 +7,16 @@ hdfs:
 
 hive:
   metastore: thrift://192.168.0.150:9083
-  createDatabaseQuery: CREATE DATABASE IF NOT EXISTS `demo` LOCATION '/user/hive/warehouse/demo.db'
-  createTableQuery: CREATE TABLE IF NOT EXISTS `demo`.`transaction` (id String) PARTITIONED BY (date String)
-  insertQuery: INSERT INTO TABLE `demo`.`transaction` select * from entries
-  tempTable: entries
+  external:
+    createDatabaseQuery: CREATE DATABASE IF NOT EXISTS `organization` LOCATION '/user/hive/warehouse/organization.db'
+    table:
+      - query: CREATE EXTERNAL TABLE IF NOT EXISTS `organization`.region(id int,name string,country int) Stored as ORC location '/external/orc/Region'
+      - query: CREATE EXTERNAL TABLE IF NOT EXISTS `organization`.country(id int,name string,code string) Stored as ORC location '/external/orc/Country'
+      - query: CREATE EXTERNAL TABLE IF NOT EXISTS `organization`.department(id int,name string,region int) Stored as ORC location '/external/orc/Department'
+      - query: CREATE EXTERNAL TABLE IF NOT EXISTS `organization`.employee(id int,name string,age int,sex string,salary int,department int) Stored as ORC location '/external/orc/Employee'
+  internal:
+    createDatabaseQuery: CREATE DATABASE IF NOT EXISTS `operation` LOCATION '/user/hive/warehouse/operation.db'
+    table:
+      - query: CREATE TABLE IF NOT EXISTS `operation`.`transaction` (id String) PARTITIONED BY (date String)
+    insertQuery: INSERT INTO TABLE `operation`.`transaction` select * from entries
+    tempTable: entries

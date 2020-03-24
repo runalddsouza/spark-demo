@@ -13,9 +13,16 @@ class HiveInsertJob(configuration: SparkConfiguration) extends TableInsertJob(co
   override def getOperations: Operation = new SampleOperation
 
   override def insert(operation: Operation): Unit = {
-    spark.sql(configuration.hive.createDatabaseQuery)
-    spark.sql(configuration.hive.createTableQuery)
-    spark.createDataFrame(operation.transaction).createOrReplaceTempView(configuration.hive.tempTable)
-    spark.sql(configuration.hive.insertQuery)
+    spark.createDataFrame(operation.transaction).createOrReplaceTempView(configuration.hive.internal.tempTable)
+    spark.sql(configuration.hive.internal.insertQuery)
+  }
+
+  override protected def initSchema(): Unit = {
+    //Create Databases
+    spark.sql(configuration.hive.external.createDatabaseQuery)
+    spark.sql(configuration.hive.internal.createDatabaseQuery)
+    //Create Tables
+    configuration.hive.external.table.foreach(s => spark.sql(s.query))
+    spark.sql(configuration.hive.internal.table.head.query)
   }
 }
