@@ -17,5 +17,6 @@ case class SparkConfiguration(@JsonProperty("master") val master: String, @JsonP
 case class Hdfs(@JsonProperty("uri") val uri: String, @JsonProperty("readLocation") val readPath: String,
                 @JsonProperty("writeLocation") val writePath: String)
 
-case class Hive(@JsonProperty("metastore") val metastore: String, @JsonProperty("createQuery") val createQuery: String,
-                @JsonProperty("insertQuery") val insertQuery: String, @JsonProperty("tempTable") val tempTable: String)
+case class Hive(@JsonProperty("metastore") val metastore: String, @JsonProperty("createDatabaseQuery") val createDatabaseQuery: String,
+                @JsonProperty("createTableQuery") val createTableQuery: String, @JsonProperty("insertQuery") val insertQuery: String,
+                @JsonProperty("tempTable") val tempTable: String)

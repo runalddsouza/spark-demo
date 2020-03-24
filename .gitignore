@@ -10,7 +10,8 @@ metastore_db
 
 # Generated files
 .idea/**/contentModel.xml
-target/
+target/**
+dependency-reduced-pom.xml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/

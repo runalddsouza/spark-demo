@@ -1,0 +1,13 @@
+master: local[*]
+
+hdfs:
+  uri: hdfs://192.168.0.150:8020
+  readLocation: /external
+  writeLocation: /external
+
+hive:
+  metastore: thrift://192.168.0.150:9083
+  createDatabaseQuery: CREATE DATABASE IF NOT EXISTS `demo` LOCATION '/user/hive/warehouse/demo.db'
+  createTableQuery: CREATE TABLE IF NOT EXISTS `demo`.`transaction` (id String) PARTITIONED BY (date String)
+  insertQuery: INSERT INTO TABLE `demo`.`transaction` select * from entries
+  tempTable: entries
