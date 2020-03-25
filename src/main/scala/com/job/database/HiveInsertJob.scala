@@ -6,8 +6,9 @@ import org.apache.spark.sql.SparkSession
 
 class HiveInsertJob(configuration: SparkConfiguration) extends TableInsertJob(configuration: SparkConfiguration) {
   override def init: SparkSession = SparkSession.builder.master(configuration.master)
-    .config("fs.defaultFS", configuration.hdfs.uri)
+    .config("spark.hadoop.fs.defaultFS", configuration.hdfs.uri)
     .config("hive.metastore.uris", configuration.hive.metastore)
+    .config("spark.sql.warehouse.dir", "/user/hive/warehouse")
     .config("hive.exec.dynamic.partition.mode", "nonstrict").enableHiveSupport.getOrCreate
 
   override def getOperations: Operation = new SampleOperation
