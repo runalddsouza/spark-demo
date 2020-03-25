@@ -5,9 +5,10 @@ import com.data.SampleOrganization
 import com.transformations.{SampleTransform, Transform}
 import org.apache.spark.sql.SparkSession
 
-class HdfsWriteJob(configuration: SparkConfiguration) extends WriteJob(configuration: SparkConfiguration) with Format {
+class HdfsWriteJob(configuration: SparkConfiguration) extends WriteJob[Transform](configuration: SparkConfiguration) with Format {
 
-  override def init: SparkSession = SparkSession.builder.master(configuration.master).config("fs.defaultFS", configuration.hdfs.uri)
+  override def init: SparkSession = SparkSession.builder.master(configuration.master)
+    .config("spark.hadoop.fs.defaultFS", configuration.hdfs.uri)
     .getOrCreate
 
   override def transform: Transform = new SampleTransform(spark, new SampleOrganization)

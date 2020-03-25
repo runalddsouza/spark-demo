@@ -8,8 +8,8 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
 object Configuration {
-  def load(configPath: String): SparkConfiguration = new ObjectMapper(new YAMLFactory).registerModule(DefaultScalaModule)
-    .readValue(new File(configPath), classOf[SparkConfiguration])
+  def load(configPath: String): SparkConfiguration = new ObjectMapper(new YAMLFactory)
+    .registerModule(DefaultScalaModule).readValue(new File(configPath), classOf[SparkConfiguration])
 }
 
 case class SparkConfiguration(@JsonProperty("master") val master: String, @JsonProperty("hive") val hive: Hive,
