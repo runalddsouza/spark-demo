@@ -1,11 +1,11 @@
 package com.transformations
 
-import com.data.Organization
+import com.data.SampleOrganizationData
 import com.model._
 import org.apache.spark.sql.{Dataset, Encoders, SparkSession}
 import org.apache.spark.storage.StorageLevel
 
-class SampleTransform(val spark: SparkSession, val organization: Organization) extends Transform(spark: SparkSession, organization: Organization) {
+class SampleOrganizationTransform(val spark: SparkSession, val organization: SampleOrganizationData) extends OrganizationTransform {
 
   override def country: Dataset[Country] = spark.createDataset(organization.country)(Encoders.product[Country]).persist(StorageLevel.MEMORY_AND_DISK)
 

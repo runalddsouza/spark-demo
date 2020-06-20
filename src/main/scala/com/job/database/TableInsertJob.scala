@@ -1,8 +1,8 @@
 package com.job.database
 
 import com.configuration.SparkConfiguration
-import com.data.Operation
 import com.job.SparkJob
+import com.transformations.OperationTransform
 
 abstract class TableInsertJob(configuration: SparkConfiguration) extends SparkJob {
 
@@ -13,7 +13,7 @@ abstract class TableInsertJob(configuration: SparkConfiguration) extends SparkJo
 
   protected def initSchema()
 
-  protected def getOperations: Operation
+  protected def getOperations: OperationTransform
 
-  protected def insert(operation: Operation)
+  protected def insert(operation: OperationTransform)
 }

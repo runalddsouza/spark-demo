@@ -1,7 +1,8 @@
 package com.job.database
 
 import com.configuration.SparkConfiguration
-import com.data.{Operation, SampleOperation}
+import com.data.SampleOperationData
+import com.transformations.{OperationTransform, SampleOperationTransform}
 import org.apache.spark.sql.SparkSession
 
 class HiveInsertJob(configuration: SparkConfiguration) extends TableInsertJob(configuration: SparkConfiguration) {
@@ -11,10 +12,10 @@ class HiveInsertJob(configuration: SparkConfiguration) extends TableInsertJob(co
     .config("spark.sql.warehouse.dir", "/user/hive/warehouse")
     .config("hive.exec.dynamic.partition.mode", "nonstrict").enableHiveSupport.getOrCreate
 
-  override def getOperations: Operation = new SampleOperation
+  override def getOperations: OperationTransform = new SampleOperationTransform(spark, new SampleOperationData)
 
-  override def insert(operation: Operation): Unit = {
-    spark.createDataFrame(operation.transaction).createOrReplaceTempView(configuration.hive.internal.tempTable)
+  override def insert(operation: OperationTransform): Unit = {
+    operation.transaction.toDF.createOrReplaceTempView(configuration.hive.internal.tempTable)
     spark.sql(configuration.hive.internal.insertQuery)
   }
 

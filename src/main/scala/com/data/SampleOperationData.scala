@@ -5,7 +5,7 @@ import java.util.{Date, UUID}
 
 import com.model.{Stock, Transaction}
 
-class SampleOperation extends Operation {
+class SampleOperationData {
   def transaction: List[Transaction] = {
     val date = new SimpleDateFormat("yyyy-MM-dd'T'HH.mm.ssZ").format(new Date())
     (1 to 100).map(_ => Transaction(UUID.randomUUID.toString, date)).toList
