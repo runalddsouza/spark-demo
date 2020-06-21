@@ -8,22 +8,24 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
 object Configuration {
-  def load(configPath: String): SparkConfiguration = new ObjectMapper(new YAMLFactory)
-    .registerModule(DefaultScalaModule).readValue(new File(configPath), classOf[SparkConfiguration])
+  def load(configPath: String): SparkConfiguration = {
+    new ObjectMapper(new YAMLFactory)
+      .registerModule(DefaultScalaModule).readValue(new File(configPath), classOf[SparkConfiguration])
+  }
 }
 
-case class SparkConfiguration(@JsonProperty("master") val master: String, @JsonProperty("hive") val hive: Hive,
-                              @JsonProperty("hdfs") val hdfs: Hdfs)
+case class SparkConfiguration(@JsonProperty("master") master: String, @JsonProperty("hive") hive: Hive,
+                              @JsonProperty("hdfs") hdfs: Hdfs)
 
-case class Hdfs(@JsonProperty("uri") val uri: String, @JsonProperty("readLocation") val readPath: String,
-                @JsonProperty("writeLocation") val writePath: String)
+case class Hdfs(@JsonProperty("uri") uri: String, @JsonProperty("readLocation") readPath: String,
+                @JsonProperty("writeLocation") writePath: String)
 
-case class Hive(@JsonProperty("metastore") val metastore: String, @JsonProperty("external") val external: External,
-                @JsonProperty("internal") val internal: Internal)
+case class Hive(@JsonProperty("metastore") metastore: String, @JsonProperty("external") external: External,
+                @JsonProperty("internal") internal: Internal)
 
-case class External(@JsonProperty("createDatabaseQuery") val createDatabaseQuery: String, @JsonProperty("table") val table: List[Table])
+case class External(@JsonProperty("createDatabaseQuery") createDatabaseQuery: String, @JsonProperty("table") table: List[Table])
 
-case class Internal(@JsonProperty("createDatabaseQuery") val createDatabaseQuery: String, @JsonProperty("table") val table: List[Table],
-                    @JsonProperty("insertQuery") val insertQuery: String, @JsonProperty("tempTable") val tempTable: String)
+case class Internal(@JsonProperty("createDatabaseQuery") createDatabaseQuery: String, @JsonProperty("table") table: List[Table],
+                    @JsonProperty("insertQuery") insertQuery: String, @JsonProperty("tempTable") tempTable: String)
 
-case class Table(@JsonProperty("query") val query: String)
+case class Table(@JsonProperty("query") query: String)

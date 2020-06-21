@@ -10,7 +10,7 @@ trait Format {
   }
 
   private def parquet(df: DataFrame, path: String, entity: String): Unit = df.write.mode(SaveMode.Overwrite)
-    .parquet(s"${path}/parquet/${entity}")
+    .option("compression", "snappy").parquet(s"${path}/parquet/${entity}")
 
   private def orc(df: DataFrame, path: String, entity: String): Unit = df.write.mode(SaveMode.Overwrite)
     .option("compression", "zlib").orc(s"${path}/orc/${entity}")
