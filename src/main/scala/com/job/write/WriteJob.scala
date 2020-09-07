@@ -8,9 +8,8 @@ abstract class WriteJob[T](configuration: SparkConfiguration) extends SparkJob {
   protected val writeLocation: String = setWriteLocation()
 
   override protected def init: SparkSession = SparkSession.builder.master(configuration.master)
-    .config("spark.hadoop.fs.defaultFS", configuration.hdfs.uri)
     .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-    .getOrCreate()
+    .getOrCreate
 
   final protected def execute(): Unit = write(transform, writeLocation)
 

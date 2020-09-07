@@ -1,6 +1,6 @@
 package com.job.write
 
-import com.configuration.SparkConfiguration
+import com.configuration.{Configuration, SparkConfiguration}
 import com.data.SampleOrganizationData
 import com.transformations.{OrganizationTransform, SampleOrganizationTransform}
 
@@ -16,4 +16,8 @@ class HdfsWriteJob(configuration: SparkConfiguration) extends WriteJob[Organizat
     writeData(transform.department.toDF, path, "Department")
     writeData(transform.employee.toDF, path, "Employee")
   }
+}
+
+object HdfsWriteJob {
+  def main(args: Array[String]): Unit = new HdfsWriteJob(Configuration.load).run()
 }

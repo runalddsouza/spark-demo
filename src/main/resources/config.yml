@@ -1,10 +1,8 @@
-master: local[*]
+master: yarn
 hdfs:
-  uri: hdfs://192.168.0.150:8020
   readLocation: /external
   writeLocation: /external
 hive:
-  metastore: thrift://192.168.0.150:9083
   external:
     createDatabaseQuery: CREATE DATABASE IF NOT EXISTS `organization`
     table:

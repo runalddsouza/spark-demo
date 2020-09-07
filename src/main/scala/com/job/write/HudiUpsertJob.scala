@@ -1,6 +1,6 @@
 package com.job.write
 
-import com.configuration.SparkConfiguration
+import com.configuration.{Configuration, SparkConfiguration}
 import com.data.SampleOperationData
 import com.transformations.{OperationTransform, SampleOperationTransform}
 import org.apache.hudi.DataSourceWriteOptions
@@ -28,6 +28,10 @@ class HudiUpsertJob(configuration: SparkConfiguration) extends WriteJob[Operatio
       .option(HoodieCompactionConfig.CLEANER_COMMITS_RETAINED_PROP, "1")
       .option(HoodieWriteConfig.TABLE_NAME, tableName)
       .mode(SaveMode.Append)
-      .save(s"${path}/parquet/${tableName}")
+      .save(s"${path}/hudi/${tableName}")
   }
+}
+
+object HudiUpsertJob {
+  def main(args: Array[String]): Unit = new HudiUpsertJob(Configuration.load).run()
 }
