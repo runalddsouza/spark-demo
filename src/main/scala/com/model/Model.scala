@@ -9,3 +9,5 @@ case class Employee(id: Int, name: String, age: Int, sex: String, salary: Long, 
 case class Department(id: Int, name: String, region: Int)
 
 case class Transaction(id: String, date: String)
+
+case class Stock(id: String, sType: String, item: String, remaining: Int, updateDate: Long)
