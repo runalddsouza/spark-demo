@@ -1,4 +1,4 @@
-# Spark Demo Project
+# Spark Hadoop
  Experimenting Spark Connectivity with Remote Hadoop Cluster
  - Write Parquet and ORC files to HDFS.
  - Create Hive external tables over ORC data.
