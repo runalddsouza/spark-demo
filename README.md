@@ -21,11 +21,11 @@
  
  - Submit Job using below commands:<br>
     `spark-submit --master yarn --deploy-mode cluster --class com.job.write.HdfsWriteJob 
-    --conf spark.app.name=HdfsWriteJob spark-demo-1.0.jar`
+    --conf spark.app.name=HdfsWriteJob spark-hadoop-1.0.jar`
  
     `spark-submit --master yarn --deploy-mode cluster --class com.job.database.HiveInsertJob 
     --conf spark.app.name=HiveInsertJob --conf spark.hadoop.hive.metastore.uris=thrift://<METASTORE_HOST>:9083
-    spark-demo-1.0.jar`
+    spark-hadoop-1.0.jar`
  
     `spark-submit --master yarn --deploy-mode cluster --class com.job.write.HudiUpsertJob 
-     --conf spark.app.name=HudiUpsertJob spark-demo-1.0.jar`
+     --conf spark.app.name=HudiUpsertJob spark-hadoop-1.0.jar`
